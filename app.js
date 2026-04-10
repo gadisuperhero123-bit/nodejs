@@ -19,3 +19,26 @@ app.use((req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
 });
+
+
+
+app.get('/ai', async (req, res) => {
+  const fetch = (await import('node-fetch')).default;
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'gpt-4.1-mini',
+      messages: [
+        { role: 'user', content: 'תגיד משהו קצר' }
+      ]
+    })
+  });
+
+  const data = await response.json();
+  res.json(data);
+});
