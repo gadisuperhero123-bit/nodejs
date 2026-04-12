@@ -186,10 +186,10 @@ CRITICAL:
 
 `
 },
-  {
-    role: "user",
-    content: "אני מרגיש עצב בלי סיבה"
-  }
+ {
+  role: "user",
+  content: req.query.message || "שלום"
+}
 ],
       }),
     });
